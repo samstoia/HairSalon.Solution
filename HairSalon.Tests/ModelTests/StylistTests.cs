@@ -22,7 +22,7 @@ namespace HairSalon.Tests
       [TestMethod]
       public void StylistConstructor_CreatesInstanceOfStylist_Stylist()
       {
-          Stylist newStylist = new Stylist(1, "test");
+          Stylist newStylist = new Stylist("test", 1);
           Assert.AreEqual(typeof(Stylist), newStylist.GetType());
       }
 
@@ -30,7 +30,7 @@ namespace HairSalon.Tests
       public void GetStylistName_GetsStylistName_String()
       {
           string name = "Paula Abdul";
-          Stylist newStylist = new Stylist(1, name);
+          Stylist newStylist = new Stylist(name, 1);
 
           string result = newStylist.GetStylistName();
 
@@ -48,7 +48,7 @@ namespace HairSalon.Tests
       public void Save_SavesStylistToDatabase_StylistList()
       {
             //Arrange
-        Stylist testStylist = new Stylist(1, "Hair Cutter");
+        Stylist testStylist = new Stylist("Hair Cutter", 1);
         testStylist.Save();
 
         //Act
@@ -66,9 +66,9 @@ namespace HairSalon.Tests
             string name01 = "Paula Abdul";
             string name02 = "Liza Minelli";
             int id = 0;
-            Stylist newStylist1 = new Stylist(id, name01);
+            Stylist newStylist1 = new Stylist(name01, id);
             newStylist1.Save();
-            Stylist newStylist2 = new Stylist(id, name02);
+            Stylist newStylist2 = new Stylist(name02, id);
             newStylist2.Save();
             List<Stylist> newList = new List<Stylist> { newStylist1, newStylist2 };
 
@@ -77,6 +77,17 @@ namespace HairSalon.Tests
 
             //Assert
             CollectionAssert.AreEqual(newList, result);
+        }
+
+        [TestMethod]
+        public void Find_ReturnsCorrectStylist_Stylist()
+        {
+            Stylist testStylist = new Stylist("Household chores");
+            testStylist.Save();
+
+            Stylist foundStylist = Stylist.Find(testStylist.GetId());
+
+            Assert.AreEqual(testStylist, foundStylist);
         }
   }
 }
