@@ -1,0 +1,11 @@
+<h1>Stylist Client Details: </h1>
+
+<h2>@Model["client"].GetClientName()</h2>
+<h3>Stylist: @Model["stylist"].GetStylistName()</h3>
+
+<a href='/stylists/@Model["category"].GetId()/clients/new'>Add another client</a>
+<a href='/stylists'>View all stylists</a>
+<!-- add a link to access the edit route -->
+<!-- When someone clicks this link, it will activate our Edit() route in clientsController. That route will load a view of the same name.-->
+<a href='/stylists/@Model["category"].GetId()/clients/@Model["client"].GetId()/edit'>Edit this client</a>
+<a href='/stylists/@Model["category"].GetId()/clients/@Model["client"].GetId()/delete'>Delete this client</a>

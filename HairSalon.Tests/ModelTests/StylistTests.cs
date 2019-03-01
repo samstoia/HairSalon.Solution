@@ -92,7 +92,7 @@ namespace HairSalon.Tests
 
         [TestMethod]
         public void GetClients_RetrievesAllClientsWithStylist_ClientList()
-            {
+        {
             //Arrange, Act
             Stylist testStylist = new Stylist("Household chores");
             testStylist.Save();
@@ -105,7 +105,7 @@ namespace HairSalon.Tests
 
             //Assert
             CollectionAssert.AreEqual(testClientList, resultClientList);
-            }
+        }
 
   }
 }
