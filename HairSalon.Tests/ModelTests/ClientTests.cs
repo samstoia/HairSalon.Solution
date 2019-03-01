@@ -6,8 +6,18 @@ using System;
 namespace HairSalon.Tests
 {
   [TestClass]
-  public class ClientTest
+  public class ClientTest : IDisposable
   {
+    public ClientTest()
+    {
+    DBConfiguration.ConnectionString = "server=localhost;user id=root;password=root;port=8889;database=sam_stoia_test;";
+    }
+
+    public void Dispose()
+    {
+      Client.ClearAll();
+    }
+
       [TestMethod]
       public void ClientConstructor_CreatesInstanceOfClient_Client()
       {
@@ -25,5 +35,7 @@ namespace HairSalon.Tests
 
           Assert.AreEqual(name, result);
       }
+
+      
   }
 }
