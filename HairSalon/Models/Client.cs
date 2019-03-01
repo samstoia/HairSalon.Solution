@@ -7,12 +7,15 @@ namespace HairSalon.Models
 {
   public class Client
   {
-      private int _id;
+			private int _id;
       private string _clientName;
-      public Client(int id, string clientName)
+		
+			private int _stylistId;
+      public Client(int id, string clientName, int stylistId)
       {
-          _id = id;
+					_id = id;
           _clientName = clientName;
+					_stylistId = stylistId;
       }
 
       public string GetClientName()
@@ -51,7 +54,8 @@ namespace HairSalon.Models
           {
               int ClientId = rdr.GetInt32(0);
               string ClientName = rdr.GetString(1);
-              Client newClient = new Client(ClientId, ClientName);
+							int ClientStylistId = rdr.GetInt32(2);
+              Client newClient = new Client(ClientId, ClientName, ClientStylistId);
               allClients.Add(newClient);
 
           }
@@ -62,7 +66,79 @@ namespace HairSalon.Models
           }
         return allClients;
       }
-        
+
+      public static Client Find(int id)
+    	{
+				MySqlConnection conn = DB.Connection();
+				conn.Open();
+				var cmd = conn.CreateCommand() as MySqlCommand;
+				cmd.CommandText = @"SELECT * FROM clients WHERE id = (@searchId);";
+				MySqlParameter searchId = new MySqlParameter();
+				searchId.ParameterName = "@searchId";
+				searchId.Value = id;
+				cmd.Parameters.Add(searchId);
+				var rdr = cmd.ExecuteReader() as MySqlDataReader;
+				int clientId = 0;
+				string clientName = "";
+				int ClientStylistId = 0;
+				while (rdr.Read())
+				{
+					clientId = rdr.GetInt32(0);
+					clientName = rdr.GetString(1);
+				}
+				Client newClient = new Client(clientId, clientName, ClientStylistId);
+				conn.Close();
+				if (conn != null)
+				{
+					conn.Dispose();
+				}
+      return newClient;
+    	}
+
+			public override bool Equals(System.Object otherClient)
+			{
+				if (!(otherClient is Client))
+				{
+					return false;
+				}
+				else
+				{
+					Client newClient = (Client) otherClient;
+					bool idEquality = (this.GetId() == newClient.GetId());
+					bool nameEquality = (this.GetClientName() == newClient.GetClientName());
+					bool stylistEquality = this.GetStylistId() == newClient.GetStylistId();
+					return (idEquality && nameEquality);
+				}
+
+			}
+
+			public int GetStylistId()
+			{
+				return _stylistId;
+			}
+			
+			public void Save()
+			{
+				MySqlConnection conn = DB.Connection();
+				conn.Open();
+				var cmd = conn.CreateCommand() as MySqlCommand;
+				cmd.CommandText = @"INSERT INTO clients (name, stylist_id) VALUES (@name, @stylist_id);";
+				MySqlParameter name = new MySqlParameter();
+				name.ParameterName = "name";
+				name.Value = this._clientName;
+				cmd.Parameters.Add(name);
+				MySqlParameter stylistId = new MySqlParameter();
+				stylistId.ParameterName = "@stylist_id";
+				stylistId.Value = this._stylistId;
+				cmd.Parameters.Add(stylistId);
+				cmd.ExecuteNonQuery();
+				_id = (int) cmd.LastInsertedId;
+				conn.Close();
+				if (conn != null)
+				{
+					conn.Dispose();
+				}
+    	}
   }
 
 }
