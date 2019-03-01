@@ -9,7 +9,7 @@ namespace HairSalon.Models
   {
       private int _id;
       private string _stylistName;
-      public Stylist(int id, string stylistName)
+      public Stylist(string stylistName, int id = 0)
       {
           _id = id;
           _stylistName = stylistName;
@@ -51,7 +51,7 @@ namespace HairSalon.Models
           {
               int StylistId = rdr.GetInt32(0);
               string StylistName = rdr.GetString(1);
-              Stylist newStylist = new Stylist(StylistId, StylistName);
+              Stylist newStylist = new Stylist(StylistName, StylistId);
               allStylists.Add(newStylist);
           }
 
