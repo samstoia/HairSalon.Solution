@@ -28,7 +28,7 @@ namespace HairSalon.Tests
       [TestMethod]
       public void GetClientName_GetsClientName_String()
       {
-          string name = "Paula Abdul";
+          string name = "The Rock";
           Client newClient = new Client(1, name, 1);
 
           string result = newClient.GetClientName();

@@ -8,14 +8,16 @@ namespace HairSalon.Models
   public class Client
   {
 			private int _id;
+			private int _stylistId;
       private string _clientName;
 		
-			private int _stylistId;
-      public Client(int id, string clientName, int stylistId)
+			
+      public Client(int stylistId, string clientName, int id = 0)
       {
 					_id = id;
-          _clientName = clientName;
 					_stylistId = stylistId;
+          _clientName = clientName;
+					
       }
 
       public string GetClientName()
@@ -52,10 +54,10 @@ namespace HairSalon.Models
           var rdr = cmd.ExecuteReader() as MySqlDataReader;
           while(rdr.Read())
           {
-              int ClientId = rdr.GetInt32(0);
-              string ClientName = rdr.GetString(1);
-							int ClientStylistId = rdr.GetInt32(2);
-              Client newClient = new Client(ClientId, ClientName, ClientStylistId);
+              int clientId = rdr.GetInt32(0);
+							int clientStylistId = rdr.GetInt32(1);
+              string clientName = rdr.GetString(2);
+              Client newClient = new Client(clientStylistId, clientName, clientId);
               allClients.Add(newClient);
 
           }
@@ -79,14 +81,15 @@ namespace HairSalon.Models
 				cmd.Parameters.Add(searchId);
 				var rdr = cmd.ExecuteReader() as MySqlDataReader;
 				int clientId = 0;
+				int clientStylistId = 0;
 				string clientName = "";
-				int ClientStylistId = 0;
 				while (rdr.Read())
 				{
 					clientId = rdr.GetInt32(0);
-					clientName = rdr.GetString(1);
+					clientStylistId = rdr.GetInt32(1);
+					clientName = rdr.GetString(2);
 				}
-				Client newClient = new Client(clientId, clientName, ClientStylistId);
+				Client newClient = new Client(clientStylistId, clientName, clientId);
 				conn.Close();
 				if (conn != null)
 				{
@@ -104,12 +107,17 @@ namespace HairSalon.Models
 				else
 				{
 					Client newClient = (Client) otherClient;
-					bool idEquality = (this.GetId() == newClient.GetId());
-					bool nameEquality = (this.GetClientName() == newClient.GetClientName());
+					bool idEquality = this.GetId() == newClient.GetId();
+					bool nameEquality = this.GetClientName() == newClient.GetClientName();
 					bool stylistEquality = this.GetStylistId() == newClient.GetStylistId();
-					return (idEquality && nameEquality);
+					return (idEquality && nameEquality && stylistEquality);
 				}
 
+			}
+
+			public override int GetHashCode()
+			{
+				return this.GetId().GetHashCode();
 			}
 
 			public int GetStylistId()
@@ -122,15 +130,17 @@ namespace HairSalon.Models
 				MySqlConnection conn = DB.Connection();
 				conn.Open();
 				var cmd = conn.CreateCommand() as MySqlCommand;
-				cmd.CommandText = @"INSERT INTO clients (name, stylist_id) VALUES (@name, @stylist_id);";
-				MySqlParameter name = new MySqlParameter();
-				name.ParameterName = "name";
-				name.Value = this._clientName;
-				cmd.Parameters.Add(name);
+				cmd.CommandText = @"INSERT INTO clients (stylist_id, name) VALUES (@stylist_id, @name);";
+
 				MySqlParameter stylistId = new MySqlParameter();
 				stylistId.ParameterName = "@stylist_id";
 				stylistId.Value = this._stylistId;
 				cmd.Parameters.Add(stylistId);
+				MySqlParameter name = new MySqlParameter();
+				name.ParameterName = "@name";
+				name.Value = this._clientName;
+				cmd.Parameters.Add(name);
+				
 				cmd.ExecuteNonQuery();
 				_id = (int) cmd.LastInsertedId;
 				conn.Close();

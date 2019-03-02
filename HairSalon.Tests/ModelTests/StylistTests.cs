@@ -29,7 +29,7 @@ namespace HairSalon.Tests
       [TestMethod]
       public void GetStylistName_GetsStylistName_String()
       {
-          string name = "Paula Abdul";
+          string name = "The Rock";
           Stylist newStylist = new Stylist(name, 1);
 
           string result = newStylist.GetStylistName();
@@ -82,7 +82,7 @@ namespace HairSalon.Tests
         [TestMethod]
         public void Find_ReturnsCorrectStylist_Stylist()
         {
-            Stylist testStylist = new Stylist("Paula Abdul");
+            Stylist testStylist = new Stylist("The Rock");
             testStylist.Save();
 
             Stylist foundStylist = Stylist.Find(testStylist.GetId());
@@ -90,22 +90,22 @@ namespace HairSalon.Tests
             Assert.AreEqual(testStylist, foundStylist);
         }
 
-        [TestMethod]
-        public void GetClients_RetrievesAllClientsWithStylist_ClientList()
-        {
-            //Arrange, Act
-            Stylist testStylist = new Stylist("Household chores");
-            testStylist.Save();
-            Client firstClient = new Client(1, "Paula Abdul", testStylist.GetId());
-            firstClient.Save();
-            Client secondClient = new Client(1, "Liza Minelli", testStylist.GetId());
-            secondClient.Save();
-            List<Client> testClientList = new List<Client> {firstClient, secondClient};
-            List<Client> resultClientList = testStylist.GetClients();
+        // [TestMethod]
+        // public void GetClients_RetrievesAllClientsWithStylist_ClientList()
+        // {
+        //     //Arrange, Act
+        //     Stylist testStylist = new Stylist("The Queen");
+        //     testStylist.Save();
+        //     Client firstClient = new Client(1, "Paula Abdul", testStylist.GetId());
+        //     firstClient.Save();
+        //     Client secondClient = new Client(1, "Liza Minelli", testStylist.GetId());
+        //     secondClient.Save();
+        //     List<Client> testClientList = new List<Client> {firstClient, secondClient};
+        //     List<Client> resultClientList = testStylist.GetClients();
 
-            //Assert
-            CollectionAssert.AreEqual(testClientList, resultClientList);
-        }
+        //     //Assert
+        //     CollectionAssert.AreEqual(testClientList, resultClientList);
+        // }
 
   }
 }
