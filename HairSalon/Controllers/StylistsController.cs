@@ -51,10 +51,17 @@ namespace HairSalon.Controllers
 					List<Client> stylistClients = foundStylist.GetClients();
 					model.Add("clients", stylistClients);
 					model.Add("stylist", foundStylist);
-					return View("Show", model);
+					return RedirectToAction("Show", model);
 				}
 
-				
+				[HttpGet("/stylists/{stylistId}/delete")]
+				public ActionResult Delete (int stylistId)
+				{
+					Client.ClearAllWithin(stylistId);
+					Stylist.Delete(stylistId);
+					return View();
+				}
+
     }
 
 }

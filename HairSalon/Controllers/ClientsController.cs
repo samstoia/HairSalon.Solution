@@ -24,6 +24,8 @@ namespace HairSalon.Controllers
 					model.Add("stylist", stylist);
 					return View(model);
 				}
-    }
+
+				
+			}
 
 }

@@ -149,6 +149,40 @@ namespace HairSalon.Models
 					conn.Dispose();
 				}
     	}
+
+			public static void ClearAllWithin(int stylistId)
+			{
+				MySqlConnection conn = DB.Connection();
+				conn.Open();
+				var cmd = conn.CreateCommand() as MySqlCommand;
+				cmd.CommandText = @"DELETE FROM clients WHERE stylist_id = "+stylistId+";";
+				cmd.ExecuteNonQuery();
+				conn.Close();
+				if (conn != null)
+				{
+				conn.Dispose();
+				}
+			}
+
+			// public static void Delete(int id)
+			// {
+			// 	MySqlConnection conn = DB.Connection();
+			// 	conn.Open();
+			// 	var cmd = conn.CreateCommand() as MySqlCommand;
+			// 	cmd.CommandText =@"DELETE FROM clients WHERE id = "+id+";";
+			// 	cmd.ExecuteNonQuery();
+
+			// 	conn.Close();
+			// 	{
+			// 		if (conn != null)
+			// 		{
+			// 			conn.Dispose();
+			// 		}
+			// 	}
+			// }
+
+
+
   }
 
 }
