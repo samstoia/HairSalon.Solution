@@ -11,16 +11,23 @@ Below is a sample of behaviors of the website:
 * Program behavior: Adds stylist, displays link for stylist.
 * User can navigate to stylist page to see client list.
 
+-------------------------------------------------------------
 
 * Website form : Add a client.
 * Sample input: "Adam Adamson"
 * Program behavior: Adds client, displays client under stylist page.
 
+-------------------------------------------------------------
+
 * Sample behavior : Delete stylist link clicked
 * Program behavior : Stylist deleted
 
+-------------------------------------------------------------
+
 * Sample behavior : Delete client link clicked
 * Program behavior : Stylist deleted
+
+-------------------------------------------------------------
 
 
 
