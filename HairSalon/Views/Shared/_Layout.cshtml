@@ -7,9 +7,13 @@
     <link rel='stylesheet' href='https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css'>
     <link rel="stylesheet" href="~/css/styles.css">
   </head>
-  <body>
+  <body class="background">
+  <div class="transbox">
+    <h1>Sam's Hair Salon</h1>
+    <h3>P: 555-555-5555</h3>
+    <h3>Address: 555 5th Street, Seattle WA</h3>
     @RenderBody()
+  </div>
     @Html.Partial("Footer")
-    @Html.Partial("Sidebar")
   </body>
 </html>
