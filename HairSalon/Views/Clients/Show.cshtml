@@ -1,4 +1,10 @@
-<h1>Client Details: </h1>
+@{
+  Layout = "_Layout";
+}
+<div class="container">
+
+
+<h1 class="headline">Client Details: </h1>
 
 <h2>@Model["client"].GetClientName()</h2>
 <h3>stylist: @Model["stylist"].GetStylistName()</h3>
@@ -9,3 +15,5 @@
 <!-- When someone clicks this link, it will activate our Edit() route in clientsController. That route will load a view of the same name.-->
 <a href='/stylists/@Model["stylist"].GetId()/clients/@Model["client"].GetId()/edit'>Edit this client</a>
 <a href='/stylists/@Model["stylist"].GetId()/clients/@Model["client"].GetId()/delete'>Delete this client</a>
+
+</div>

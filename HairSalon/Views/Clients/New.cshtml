@@ -1,8 +1,16 @@
-<h1>Add a new client to @Model.GetStylistName()</h1>
+@{
+  Layout = "_Layout";
+}
+<div class="container">
+
+
+<h1 class="headline">Add a new client to @Model.GetStylistName()</h1>
 
 <form action='/stylists/@Model.GetId()/clients' method='post'>
   <input id='stylistId' name='stylistId' type='hidden' value='@Model.GetId()'>
   <label for='clientName'>Client Name</label>
   <input id='clientName' name='clientName' type='text' required>
-  <button type='submit'>Add client</button>
+  <button type='submit'class="btn btn-info">Add client</button>
 </form>
+
+</div>
