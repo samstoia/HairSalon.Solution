@@ -57,18 +57,21 @@ Below is a sample of behaviors of the website:
 
 * You can also re-create your own identical salon database by going through this order of steps in the command line:
 
-> CREATE DATABASE sam_stoia;
+* Type in "mysql -uroot -proot -P8889", you should get a welcome message, and now see "mysql" is running.
 
-> USE sam_stoia;
 
-> CREATE TABLE stylists (id int auto_increment PRIMARY KEY, name VARCHAR(255));
+> Type: CREATE DATABASE sam_stoia;
 
-> CREATE TABLE clients (id int PRIMARY KEY, stylist_id int FOREIGN KEY REFERENCES stylists(id), name VARCHAR(255));
+> Type: USE sam_stoia;
+
+> Type: CREATE TABLE stylists (id int auto_increment PRIMARY KEY, name VARCHAR(255));
+
+> Type: CREATE TABLE clients (id int PRIMARY KEY, stylist_id int FOREIGN KEY REFERENCES stylists(id), name VARCHAR(255));
 
 -------------------------------------------------------------
 
 #### Adding Stylists and Clients
-* You can now add stylists and clients using the website.
+* Wherther you've imported our database or created your own, you can now add stylists and clients using the website.
 * To add using the command line, open your terminal.
 * Type in "mysql -uroot -proot -P8889", you should get a welcome message, and now see "mysql" is running.
 * Navigate to databse by typing in: USE sam_stoia;
