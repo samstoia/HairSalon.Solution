@@ -25,7 +25,7 @@ Below is a sample of behaviors of the website:
 -------------------------------------------------------------
 
 * Sample behavior : Delete client link clicked
-* Program behavior : Stylist deleted
+* Program behavior : Client deleted
 
 -------------------------------------------------------------
 
