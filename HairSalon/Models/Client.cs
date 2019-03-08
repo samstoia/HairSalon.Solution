@@ -140,32 +140,30 @@ namespace HairSalon.Models
 				}
     	}
 
-			public void Delete(int id)
-			{
-				MySqlConnection conn = DB.Connection();
-				conn.Open();
-				var cmd = conn.CreateCommand() as MySqlCommand;
-				cmd.CommandText =@"DELETE FROM stylists_clients where client_id = @clientId; DELETE FROM clients WHERE id = @clientId;";
-				cmd.ExecuteNonQuery();
-				MySqlParameter clientIdParameter = new MySqlParameter();
-				clientIdParameter.ParameterName = "@clientId";
-				clientIdParameter.Value = this._id;
-				cmd.Parameters.Add(clientIdParameter);
-				conn.Close();
-				{
-					if (conn != null)
-					{
-						conn.Dispose();
-					}
-				}
-			}
+			public void Delete()
+    {
+      MySqlConnection conn = DB.Connection();
+      conn.Open();
+      var cmd = conn.CreateCommand() as MySqlCommand;
+      cmd.CommandText = @"DELETE FROM stylists_clients WHERE client_id = @clientId; DELETE FROM clients WHERE id = @clientId;";
+      MySqlParameter clientIdParameter = new MySqlParameter();
+      clientIdParameter.ParameterName = "@clientId";
+      clientIdParameter.Value = this._id;
+      cmd.Parameters.Add(clientIdParameter);
+      cmd.ExecuteNonQuery();
+      conn.Close();
+      if (conn != null)
+      {
+        conn.Dispose();
+      }
+    }
 
 			public void Edit(string newClientName)
     	{
       MySqlConnection conn = DB.Connection();
       conn.Open();
       var cmd = conn.CreateCommand() as MySqlCommand;
-      cmd.CommandText = @"UPDATE clients SET client_name = @clientName WHERE id = @clientId;";
+      cmd.CommandText = @"UPDATE clients SET name = @clientName WHERE id = @clientId;";
       MySqlParameter clientNameParameter = new MySqlParameter();
       clientNameParameter.ParameterName = "@clientName";
       clientNameParameter.Value = newClientName;

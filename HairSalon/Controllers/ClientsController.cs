@@ -52,22 +52,29 @@ namespace HairSalon.Controllers
       return RedirectToAction("Show",  new { id = clientId });
     }
 
-    // [HttpGet("/stylists/{stylistId}/clients/{clientId}/delete")]
-    // public ActionResult Delete (int clientId)
-    // {
-    //   Client.Delete(clientId);
-    //   return View();
-    // }
 
-    [HttpGet("/stylists/{stylistId}/clients/{clientId}/edit")]
-    public ActionResult Edit(int stylistId, int clientId)
+    [HttpGet("/clients/{id}/edit")]
+    public ActionResult Edit(int id)
     {
-      Dictionary<string, object> model = new Dictionary<string, object>();
-      Stylist stylist = Stylist.Find(stylistId);
-      model.Add("stylist", stylist);
-      Client client = Client.Find(clientId);
-      model.Add("client", client);
-      return View(model);
+      Client newClient = Client.Find(id);
+      return View(newClient);
+    }
+
+    [HttpPost("/clients/{id}/edit")]
+    public ActionResult EditPost(int id, string name)
+    {
+      Client newClient = Client.Find(id);
+      newClient.Edit(name);
+      return RedirectToAction("Index");
+    }
+
+    [HttpGet("/clients/{id}/delete")]
+    //HttpGet for delete because we are not going to new page to perform delete
+    public ActionResult Delete(int id)
+    {
+      Client newClient = Client.Find(id);
+      newClient.Delete();
+      return RedirectToAction("Index");
     }
   }
 }

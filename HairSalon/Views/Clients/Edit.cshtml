@@ -1,0 +1,17 @@
+@{
+  Layout = "_Layout";
+}
+
+<h1>Edit Client</h1>
+<hr>
+
+<h2>Edit @Model.GetClientName()</h2>
+
+<form action="/clients/@Model.GetId()/edit" method="post">
+  <label for="name">Client Name:</label>
+  <input type="text" id="name" name="name" placeholder="@Model.GetClientName()">
+
+
+  <button type="submit">Edit</button>
+</form>
+<h4><a href="/clients/@Model.GetId()">Return to previous page</a></h4>
