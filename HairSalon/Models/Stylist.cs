@@ -161,24 +161,23 @@ namespace HairSalon.Models
 			return this.GetId().GetHashCode();
 		}
 
-		public static void Delete(int id)
-		{
-			MySqlConnection conn = DB.Connection();
-			conn.Open();
-			var cmd = conn.CreateCommand() as MySqlCommand;
-			cmd.CommandText =@"DELETE FROM stylists WHERE id = "+id+";";
-
-			cmd.ExecuteNonQuery();
-
-			conn.Close();
-			{
-				if (conn != null)
-				{
-					conn.Dispose();
-				}
-			}
-
-		}
+		public void Delete()
+    {
+      MySqlConnection conn = DB.Connection();
+      conn.Open();
+      var cmd = conn.CreateCommand() as MySqlCommand;
+      cmd.CommandText = @"DELETE FROM stylists_clients WHERE stylist_id = @stylistId; DELETE FROM stylists WHERE id = @stylistId;";
+      MySqlParameter stylistIdParameter = new MySqlParameter();
+      stylistIdParameter.ParameterName = "@stylistId";
+      stylistIdParameter.Value = this._id;
+      cmd.Parameters.Add(stylistIdParameter);
+      cmd.ExecuteNonQuery();
+      conn.Close();
+      if (conn != null)
+      {
+        conn.Dispose();
+      }
+    }
 
 		public void AddClient(Client newClient)
     {

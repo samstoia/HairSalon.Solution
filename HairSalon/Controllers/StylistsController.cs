@@ -35,10 +35,10 @@ namespace HairSalon.Controllers
     {
       Dictionary<string, object> model = new Dictionary<string, object>();
       Stylist selectedStylist = Stylist.Find(id);
-      List<Client> stylistClients = selectedStylist.GetClients();
+      List<Client> stylistsClients = selectedStylist.GetClients();
       List<Client> allClients = Client.GetAll();
       model.Add("stylist", selectedStylist);
-      model.Add("stylistsClients", stylistClients);
+      model.Add("stylistsClients", stylistsClients);
       model.Add("clients", allClients);
       return View(model);
     }
@@ -52,27 +52,29 @@ namespace HairSalon.Controllers
       return RedirectToAction("Show",  new { id = stylistId });
     }
 
-    // This one creates new Clients within a given stylist, not new stylists:
-    // [HttpPost("/stylists/{stylistId}/clients")]
-    // public ActionResult Create(int stylistId, string clientName)
-    // {
-    //   Dictionary<string, object> model = new Dictionary<string, object>();
-    //   Stylist foundStylist = Stylist.Find(stylistId);
-    //   Client newClient = new Client(stylistId,clientName);
-    //   newClient.Save();
-    //   List<Client> stylistClients = foundStylist.GetClients();
-    //   model.Add("clients", stylistClients);
-    //   model.Add("stylist", foundStylist);
-    //   return View("Show", model);
-    // }
+    [HttpGet("/stylists/{id}/edit")]
+    public ActionResult Edit(int id)
+    {
+      Stylist newStylist = Stylist.Find(id);
+      return View(newStylist);
+    }
 
-    // [HttpGet("/stylists/{stylistId}/delete")]
-    // public ActionResult Delete (int stylistId)
-    // {
-    //   Client.ClearAllWithin(stylistId);
-    //   Stylist.Delete(stylistId);
-    //   return View();
-    // }
+    [HttpPost("/stylists/{id}/edit")]
+    public ActionResult EditPost(int id, string name)
+    {
+      Stylist newStylist = Stylist.Find(id);
+      newStylist.Edit(name);
+      return RedirectToAction("Index");
+    }
+
+    [HttpGet("/stylists/{id}/delete")]
+    public ActionResult Delete(int id)
+    {
+      Stylist newStylist = Stylist.Find(id);
+      newStylist.Delete();
+      return RedirectToAction("Index");
+    }
+    
 
 	}
 }
