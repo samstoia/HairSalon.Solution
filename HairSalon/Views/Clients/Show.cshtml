@@ -3,17 +3,32 @@
 }
 <div class="container">
 
+@using HairSalon.Models;
 
-<h1 class="headline">Client Details: </h1>
 
-<h2>@Model["client"].GetClientName()</h2>
-<h3>stylist: @Model["stylist"].GetStylistName()</h3>
+<h2>Client: @Model["selectedClient"].GetClientName()</h2>
+<hr />
 
-<a href='/stylists/@Model["stylist"].GetId()/clients/new'>Add another client</a>
-<a href='/stylists'>View all stylists</a>
-<!-- add a link to access the edit route -->
-<!-- When someone clicks this link, it will activate our Edit() route in clientsController. That route will load a view of the same name.-->
-<a href='/stylists/@Model["stylist"].GetId()/clients/@Model["client"].GetId()/edit'>Edit this client</a>
-<a href='/stylists/@Model["stylist"].GetId()/clients/@Model["client"].GetId()/delete'>Delete this client</a>
+@if (@Model["clientStylists"].Count != 0)
+{
+  <h4>This client uses these stylists:</h4>
+  <ul>
+    @foreach (Stylist stylist in @Model["clientStylists"])
+    {
+      <li>@stylist.GetStylistName()</li>
+    }
+  </ul>
+}
 
-</div>
+<h4>Add a stylist this client uses:</h4>
+
+<form action='/clients/@Model["selectedClient"].GetId()/stylists/new' method='post'>
+  <label for='stylistId'>Select a stylist</label>
+  <select id='stylistId' name='stylistId' type='text'>
+    @foreach (var stylist in @Model["allStylists"])
+    {
+      <option value='@stylist.GetId()'>@stylist.GetStylistName()</option>
+    }
+  </select>
+  <button type='submit'>Add</button>
+</form>
