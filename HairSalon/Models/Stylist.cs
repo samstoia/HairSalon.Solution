@@ -134,13 +134,13 @@ namespace HairSalon.Models
 			cmd.CommandText = @"SELECT clients.* FROM stylists
         JOIN stylists_clients ON (stylists.id = stylists_clients.stylist_id)
         JOIN clients ON (stylists_clients.client_id = clients.id)
-        WHERE clients.id = @clientId;";
+        WHERE stylists.id = @stylistId;";
 			MySqlParameter stylistIdParameter = new MySqlParameter();
-			stylistIdParameter.ParameterName = "@stylist_id";
+			stylistIdParameter.ParameterName = "@stylistId";
 			stylistIdParameter.Value = this._id;
 			cmd.Parameters.Add(stylistIdParameter);
-			List<Client> clientList = new List<Client> {};
 			var rdr = cmd.ExecuteReader() as MySqlDataReader;
+			List<Client> clientList = new List<Client> {};
 			while(rdr.Read())
 			{
 				int clientId = rdr.GetInt32(0);

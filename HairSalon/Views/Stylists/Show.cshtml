@@ -2,21 +2,46 @@
   Layout = "_Layout";
 }
 
+
 <div class="container">
 
-<h3>Here are all the clients in this stylist:</h3>
+@using HairSalon.Models;
 
-<ol>
-@foreach (var client in @Model["clients"])
+<h1>To Do List</h1>
+<h2>Stylist: @Model["stylist"].GetStylistName()</h2>
+<hr />
+
+@if (@Model["stylistsClients"].Count != 0)
 {
-  <li><a href='/stylists/@Model["stylist"].GetId()/clients/@client.GetId()'>@client.GetClientName()</a></li>
+  <h4>Here are all the clients who use this stylist:</h4>
+  <ul>
+    @foreach (var client in @Model["stylistsClients"])
+    {
+      <li>@client.GetClientName()</li>
+    }
+  </ul>
 }
-</ol>
 
-<p><a href='/stylists/@Model["stylist"].GetId()/clients/new'>Add a new client</a></p>
+<h4>Add a client to this stylist:</h4>
+
+<form action='/stylists/@Model["stylist"].GetId()/clients/new' method='post'>
+  <label for='clientId'>Select a client</label>
+  <select id='clientId' name='clientId' type='text'>
+
+    @foreach (var client in @Model["clients"])
+    {
+      <option value='@client.GetId()'>@client.GetClientName()</option>
+    }
+
+  </select>
+  <button type='submit'>Add</button>
+</form>
+
+
+<!-- <p><a href='/stylists/@Model["stylist"].GetId()/clients/new'>Add a new client</a></p>
 <p><a href='/stylists'>Return to stylist list</a></p>
 <p><a href='/stylists/@Model["stylist"].GetId()/delete'>Delete this stylist</a></p>
-<p><a href='/'>Return to Main Page</a></p>
+<p><a href='/'>Return to Main Page</a></p> -->
 
 
 </div>
