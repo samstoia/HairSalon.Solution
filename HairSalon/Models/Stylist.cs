@@ -225,5 +225,59 @@ namespace HairSalon.Models
       }
     }
 
+		public List<Specialty> GetSpecialties()
+    {
+      MySqlConnection conn = DB.Connection();
+      conn.Open();
+      var cmd = conn.CreateCommand() as MySqlCommand;
+      cmd.CommandText = @"SELECT specialties.* FROM stylists
+        JOIN specialties_stylists ON (stylists.id = specialties_stylists.stylist_id)
+        JOIN specialties ON (specialties_stylists.specialty_id = specialties.id)
+        WHERE stylists.id = @stylistId;";
+      MySqlParameter stylistIdParameter = new MySqlParameter();
+      stylistIdParameter.ParameterName = "@stylistId";
+      stylistIdParameter.Value = _id;
+      cmd.Parameters.Add(stylistIdParameter);
+      MySqlDataReader rdr = cmd.ExecuteReader() as MySqlDataReader;
+      List<Specialty> specialtyList = new List<Specialty>{};
+      while(rdr.Read())
+      {
+				int specialtyId = rdr.GetInt32(0);
+        string specialtyName = rdr.GetString(1);
+        
+        Specialty newSpecialty = new Specialty(specialtyName, specialtyId);
+        specialtyList.Add(newSpecialty);
+      }
+      conn.Close();
+      if (conn != null)
+      {
+        conn.Dispose();
+      }
+      return specialtyList;
+    }
+
+    public void AddSpecialty(Specialty newSpecialty)
+    {
+      MySqlConnection conn = DB.Connection();
+      conn.Open();
+      var cmd = conn.CreateCommand() as MySqlCommand;
+      cmd.CommandText = @"INSERT INTO specialties_stylists (specialty_id, stylist_id) VALUES (@specialtyId, @stylistId);";
+			MySqlParameter specialtyIdParameter = new MySqlParameter();
+      specialtyIdParameter.ParameterName = "@specialtyId";
+      specialtyIdParameter.Value = this._id;
+      cmd.Parameters.Add(specialtyIdParameter);
+      MySqlParameter stylistIdParameter = new MySqlParameter();
+      stylistIdParameter.ParameterName = "@stylistId";
+      stylistIdParameter.Value = newSpecialty.GetId();
+      cmd.Parameters.Add(stylistIdParameter);
+      cmd.ExecuteNonQuery();
+
+      conn.Close();
+      if (conn != null)
+      {
+        conn.Dispose();
+      }
+    }
+
   }
 }
