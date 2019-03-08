@@ -41,26 +41,26 @@ namespace HairSalon.Controllers
     }
 
     // This one creates new Clients within a given stylist, not new stylists:
-    [HttpPost("/stylists/{stylistId}/clients")]
-    public ActionResult Create(int stylistId, string clientName)
-    {
-      Dictionary<string, object> model = new Dictionary<string, object>();
-      Stylist foundStylist = Stylist.Find(stylistId);
-      Client newClient = new Client(stylistId,clientName);
-      newClient.Save();
-      List<Client> stylistClients = foundStylist.GetClients();
-      model.Add("clients", stylistClients);
-      model.Add("stylist", foundStylist);
-      return View("Show", model);
-    }
+    // [HttpPost("/stylists/{stylistId}/clients")]
+    // public ActionResult Create(int stylistId, string clientName)
+    // {
+    //   Dictionary<string, object> model = new Dictionary<string, object>();
+    //   Stylist foundStylist = Stylist.Find(stylistId);
+    //   Client newClient = new Client(stylistId,clientName);
+    //   newClient.Save();
+    //   List<Client> stylistClients = foundStylist.GetClients();
+    //   model.Add("clients", stylistClients);
+    //   model.Add("stylist", foundStylist);
+    //   return View("Show", model);
+    // }
 
-    [HttpGet("/stylists/{stylistId}/delete")]
-    public ActionResult Delete (int stylistId)
-    {
-      Client.ClearAllWithin(stylistId);
-      Stylist.Delete(stylistId);
-      return View();
-    }
+    // [HttpGet("/stylists/{stylistId}/delete")]
+    // public ActionResult Delete (int stylistId)
+    // {
+    //   Client.ClearAllWithin(stylistId);
+    //   Stylist.Delete(stylistId);
+    //   return View();
+    // }
 
 	}
 }

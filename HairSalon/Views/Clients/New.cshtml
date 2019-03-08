@@ -4,13 +4,16 @@
 <div class="container">
 
 
-<h1 class="headline">Add a new client to @Model.GetStylistName()</h1>
+<h1 class="headline">Add a new client</h1>
 
-<form action='/stylists/@Model.GetId()/clients' method='post'>
-  <input id='stylistId' name='stylistId' type='hidden' value='@Model.GetId()'>
-  <label for='clientName'>Client Name</label>
-  <input id='clientName' name='clientName' type='text' required>
-  <button type='submit'class="btn btn-info">Add client</button>
+<form action="/clients" method="post">
+  <label for="name">Client Name: </label>
+  <input id="name" name="name" type="text">
+  <br>
+  <button type="submit">Add client</button>
 </form>
+
+<p><a href="/">Back home</a></p>
+<p><a href="/clients">View all Clients</a></p>
 
 </div>
