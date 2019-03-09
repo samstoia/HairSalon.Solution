@@ -25,6 +25,7 @@
 <form action='/clients/@Model["selectedClient"].GetId()/stylists/new' method='post'>
   <label for='stylistId'>Select a stylist</label>
   <select id='stylistId' name='stylistId' type='text'>
+  <option disabled selected value> -- select an option -- </option>
     @foreach (var stylist in @Model["allStylists"])
     {
       <option value='@stylist.GetId()'>@stylist.GetStylistName()</option>

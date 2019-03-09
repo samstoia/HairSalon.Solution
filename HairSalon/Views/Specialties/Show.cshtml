@@ -26,6 +26,7 @@
 <form action='/specialties/@Model["selectedSpecialty"].GetId()/stylists/new' method='post'>
   <label for='stylistId'>Select a Stylist</label>
   <select id='stylistId' name='stylistId' type='text'>
+  <option disabled selected value> -- select an option -- </option>
 
     @foreach (var stylist in @Model["allStylists"])
     {
@@ -36,7 +37,8 @@
   <button type='submit'>Add</button>
 </form>
 
-
+<p><a href='/specialties'>Back to Specialties</a></p>
+<p><a href='/'>Back home</a></p>
 
 
 </div>

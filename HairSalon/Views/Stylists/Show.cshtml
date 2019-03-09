@@ -37,6 +37,7 @@
 <form action='/stylists/@Model["stylist"].GetId()/clients/new' method='post'>
   <label for='clientId'>Select a client</label>
   <select id='clientId' name='clientId' type='text'>
+  <option disabled selected value> -- select an option -- </option>
 
     @foreach (var client in @Model["clients"])
     {
@@ -52,7 +53,7 @@
 <form action='/stylists/@Model["stylist"].GetId()/specialties/new' method='post'>
   <label for='specialtyId'>Select a client</label>
   <select id='specialtyId' name='specialtyId' type='text'>
-
+  <option disabled selected value> -- select an option -- </option>
     @foreach (var specialty in @Model["specialties"])
     {
       <option value='@specialty.GetId()'>@specialty.GetSpecialtyName()</option>
@@ -66,7 +67,11 @@
 <p><a href="/stylists/@Model["stylist"].GetId()/edit">Edit Stylist</a></p>
 <p><a href="/stylists/@Model["stylist"].GetId()/delete" onclick="return confirm('Are you sure you want to delete this stylist?')">Delete Stylist</a></p>
 
+
+
+<p><a href="/stylists">Back to Stylists</a></p>
+<p><a href='/'>Back Home</a></p>
+
 <script type="text/javascript">
 </script>
-
 </div>
