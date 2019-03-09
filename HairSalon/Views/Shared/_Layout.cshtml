@@ -8,12 +8,24 @@
     <link rel="stylesheet" href="~/css/styles.css">
   </head>
   <body class="background">
-  <div class="transbox">
-    <h1>Sam's Hair Salon</h1>
-    <h3>P: 555-555-5555</h3>
-    <h3>Address: 555 5th Street, Seattle WA</h3>
-    @RenderBody()
-  </div>
-    @Html.Partial("Footer")
+  <div id="page-wrapper>"
+    <div class="sidenav">
+      <a href="/">Home</a>
+      <a href="/stylists">Stylists</a>
+      <a href="/clients">Clients</a>
+      <a href="/specialties">Specialties</a>
+    </div>
+      <div class="mainpage">
+        <div class="header">
+          <h1><span>Sam's Barber Shop</span></h1>
+        </div><!-- closes header -->
+        <div class="bodyrender">
+          @RenderBody()
+        </div><!-- Closed body render -->
+      </div><!-- closes mainpage -->
+      <div class="footer">
+        @Html.Partial("Footer")
+      </div> <!-- closes footer -->
   </body>
+
 </html>

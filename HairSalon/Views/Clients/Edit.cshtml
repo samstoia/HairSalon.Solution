@@ -2,10 +2,8 @@
   Layout = "_Layout";
 }
 
-<h1>Edit Client</h1>
+<h1 class="pagetop">Edit @Model.GetClientName()</h1>
 <hr>
-
-<h2>Edit @Model.GetClientName()</h2>
 
 <form action="/clients/@Model.GetId()/edit" method="post">
   <label for="name">Client Name:</label>
@@ -14,4 +12,6 @@
 
   <button type="submit">Edit</button>
 </form>
-<h4><a href="/clients/@Model.GetId()">Return to previous page</a></h4>
+<div class="links"></div>
+  <h4><a href="/clients/@Model.GetId()">Return to previous page</a></h4>
+</div>
