@@ -1,6 +1,6 @@
 # Sam Stoia's Hair Salon
 
-This is a website made with C# and .NET Core, utilizing MySql, that allows users to add stylists and clients into a salon database.
+This is a website made with C# and .NET Core, utilizing MySql, that allows users to add stylists and clients into a salon database. Users can then add clients to stylists, and the other way around.  Users can also add specialties to stylists, and view the list of stylists with those specialties.
 
 ## Specifications
 
@@ -16,6 +16,18 @@ Below is a sample of behaviors of the website:
 * Website form : Add a client.
 * Sample input: "Adam Adamson"
 * Program behavior: Adds client, displays client under stylist page.
+
+-------------------------------------------------------------
+
+* Website form: Add a specialty:
+* Sample input: Hair
+* Program behavior: Creates Hair specialty.
+
+-------------------------------------------------------------
+
+* Website form: Add a specialty to a stylist
+* Sample input: Hair
+* Program behavior: Adds specific specialty to stylist./
 
 -------------------------------------------------------------
 
@@ -90,6 +102,7 @@ Below is a sample of behaviors of the website:
 * VSCode
 * MSTest
 * Mono
+* JavaScript
 
 ## Authors
 
