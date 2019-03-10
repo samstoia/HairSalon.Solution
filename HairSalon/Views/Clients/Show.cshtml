@@ -9,6 +9,9 @@
 <h1 class="pagetop">Client: @Model["selectedClient"].GetClientName()</h1>
 <hr />
 
+<h4>Phone: @Model["selectedClient"].GetClientPhone()</h4>
+<h4>Email: @Model["selectedClient"].GetClientEmail()</h4>
+
 @if (@Model["clientStylists"].Count != 0)
 {
   <h4>This client uses these stylists:</h4>

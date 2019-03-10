@@ -22,9 +22,9 @@ namespace HairSalon.Controllers
     }
 
     [HttpPost("/clients")]
-    public ActionResult Create(string name)
+    public ActionResult Create(string name, string phone, string email)
     {
-      Client newClient = new Client(name);
+      Client newClient = new Client(name, phone, email);
       newClient.Save();
       List<Client> allClients = Client.GetAll();
       return View("Index", allClients);
@@ -61,10 +61,11 @@ namespace HairSalon.Controllers
     }
 
     [HttpPost("/clients/{id}/edit")]
-    public ActionResult EditPost(int id, string name)
+    public ActionResult EditPost(int id, string name, string phone, string email)
     {
       Client newClient = Client.Find(id);
-      newClient.Edit(name);
+      newClient.Edit(name, phone, email);
+      List<Client> allClients = Client.GetAll();
       return RedirectToAction("Index");
     }
 
