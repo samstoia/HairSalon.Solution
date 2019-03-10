@@ -21,7 +21,7 @@ namespace HairSalon.Tests
       [TestMethod]
       public void ClientConstructor_CreatesInstanceOfClient_Client()
       {
-          Client newClient = new Client("test");
+          Client newClient = new Client("test", "test", "test");
           Assert.AreEqual(typeof(Client), newClient.GetType());
       }
 
@@ -29,7 +29,7 @@ namespace HairSalon.Tests
       public void GetClientName_GetsClientName_String()
       {
           string name = "The Rock";
-          Client newClient = new Client(name);
+          Client newClient = new Client(name, "test", "test");
 
           string result = newClient.GetClientName();
 
@@ -42,9 +42,9 @@ namespace HairSalon.Tests
 				//Arrange
 				string name01 = "Michael Jackson";
 				string name02 = "John Snow";
-				Client newClient1 = new Client(name01);
+				Client newClient1 = new Client(name01, "test", "test");
 				newClient1.Save();
-				Client newClient2 = new Client(name02);
+				Client newClient2 = new Client(name02, "test", "test");
 				newClient2.Save();
 				List<Client> newList = new List<Client> { newClient1, newClient2 };
 
