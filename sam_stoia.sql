@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:8889
--- Generation Time: Mar 08, 2019 at 11:01 PM
+-- Generation Time: Mar 10, 2019 at 05:46 PM
 -- Server version: 5.7.24
 -- PHP Version: 7.2.10
 
@@ -32,15 +32,10 @@ USE `sam_stoia`;
 
 CREATE TABLE `clients` (
   `id` int(11) NOT NULL,
-  `name` varchar(255) NOT NULL
+  `name` varchar(255) NOT NULL,
+  `phone` varchar(255) NOT NULL,
+  `email` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
---
--- Dumping data for table `clients`
---
-
-INSERT INTO `clients` (`id`, `name`) VALUES
-(5, 'Mike');
 
 -- --------------------------------------------------------
 
@@ -52,13 +47,6 @@ CREATE TABLE `specialties` (
   `id` int(11) NOT NULL,
   `name` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
---
--- Dumping data for table `specialties`
---
-
-INSERT INTO `specialties` (`id`, `name`) VALUES
-(1, 'hair');
 
 -- --------------------------------------------------------
 
@@ -72,13 +60,6 @@ CREATE TABLE `specialties_stylists` (
   `stylist_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
---
--- Dumping data for table `specialties_stylists`
---
-
-INSERT INTO `specialties_stylists` (`id`, `specialty_id`, `stylist_id`) VALUES
-(1, 1, 1);
-
 -- --------------------------------------------------------
 
 --
@@ -89,13 +70,6 @@ CREATE TABLE `stylists` (
   `id` int(11) NOT NULL,
   `name` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
---
--- Dumping data for table `stylists`
---
-
-INSERT INTO `stylists` (`id`, `name`) VALUES
-(1, 'Mark');
 
 -- --------------------------------------------------------
 
@@ -114,7 +88,7 @@ CREATE TABLE `stylists_clients` (
 --
 
 INSERT INTO `stylists_clients` (`id`, `client_id`, `stylist_id`) VALUES
-(2, 5, 1);
+(3, 15, 16);
 
 --
 -- Indexes for dumped tables
@@ -158,31 +132,31 @@ ALTER TABLE `stylists_clients`
 -- AUTO_INCREMENT for table `clients`
 --
 ALTER TABLE `clients`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
 
 --
 -- AUTO_INCREMENT for table `specialties`
 --
 ALTER TABLE `specialties`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `specialties_stylists`
 --
 ALTER TABLE `specialties_stylists`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
 
 --
 -- AUTO_INCREMENT for table `stylists`
 --
 ALTER TABLE `stylists`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 
 --
 -- AUTO_INCREMENT for table `stylists_clients`
 --
 ALTER TABLE `stylists_clients`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

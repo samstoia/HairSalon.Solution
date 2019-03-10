@@ -78,7 +78,7 @@ Below is a sample of behaviors of the website:
 
 > Type: CREATE TABLE stylists (id int auto_increment PRIMARY KEY, name VARCHAR(255));
 
-> Type: CREATE TABLE clients (id int PRIMARY KEY, name VARCHAR(255));
+> Type: CREATE TABLE clients (id int PRIMARY KEY, name VARCHAR(255), phone VARCHAR(255), email VARCHAR(255));
 
 > Type: CREATE TABLE specialties (id int PRIMARY KEY, name VARCHAR(255));
 
