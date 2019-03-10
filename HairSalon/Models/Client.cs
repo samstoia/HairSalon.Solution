@@ -9,18 +9,30 @@ namespace HairSalon.Models
   {
 		private int _id;
 		private string _clientName;
-	
+		private string _clientPhone;
+		private string _clientEmail;
 		
-		public Client(string clientName, int id = 0)
+		public Client(string clientName, string clientPhone, string clientEmail, int id = 0)
 		{
 			_id = id;
 			_clientName = clientName;
-			
+			_clientPhone = clientPhone;
+			_clientEmail = clientEmail;
 		}
 
 		public string GetClientName()
 		{
 			return _clientName;
+		}
+
+		public string GetClientPhone()
+		{
+			return _clientPhone;
+		}
+
+		public string GetClientEmail()
+		{
+			return _clientEmail;
 		}
 
 		public int GetId()
@@ -31,6 +43,16 @@ namespace HairSalon.Models
 		public void SetClientName(string newClient_name)
     {
       _clientName = newClient_name;
+    }
+
+		public void SetClientPhone(string newClientPhone)
+    {
+      _clientPhone = newClientPhone;
+    }
+
+		public void SetClientEmail(string newClientEmail)
+    {
+      _clientEmail = newClientEmail;
     }
 
 		public static void ClearAll()
@@ -59,7 +81,9 @@ namespace HairSalon.Models
 			{
 					int clientId = rdr.GetInt32(0);
 					string clientName = rdr.GetString(1);
-					Client newClient = new Client(clientName, clientId);
+					string clientPhone = rdr.GetString(2);
+					string clientEmail = rdr.GetString(3);
+					Client newClient = new Client(clientName, clientPhone, clientEmail, clientId);
 					allClients.Add(newClient);
 
 			}
@@ -84,12 +108,17 @@ namespace HairSalon.Models
 				var rdr = cmd.ExecuteReader() as MySqlDataReader;
 				int clientId = 0;
 				string clientName = "";
+				string clientPhone = "";
+				string clientEmail = "";
 				while (rdr.Read())
 				{
 					clientId = rdr.GetInt32(0);
 					clientName = rdr.GetString(1);
+					clientPhone = rdr.GetString(2);
+					clientEmail = rdr.GetString(3);
 				}
-				Client newClient = new Client(clientName, clientId);
+					Client newClient = new Client(clientName, clientPhone, clientEmail, clientId);
+
 				conn.Close();
 				if (conn != null)
 				{
@@ -109,7 +138,9 @@ namespace HairSalon.Models
 					Client newClient = (Client) otherClient;
 					bool idEquality = this.GetId() == newClient.GetId();
 					bool nameEquality = this.GetClientName() == newClient.GetClientName();
-					return (idEquality && nameEquality);
+					bool phoneEquality = this.GetClientPhone() == newClient.GetClientPhone();
+					bool emailEquality = this.GetClientEmail() == newClient.GetClientEmail();
+					return (idEquality && nameEquality && phoneEquality && emailEquality);
 				}
 
 			}
@@ -124,13 +155,23 @@ namespace HairSalon.Models
 				MySqlConnection conn = DB.Connection();
 				conn.Open();
 				var cmd = conn.CreateCommand() as MySqlCommand;
-				cmd.CommandText = @"INSERT INTO clients (name) VALUES (@name);";
+				cmd.CommandText = @"INSERT INTO clients (name, phone, email) VALUES (@name, @phone, @email);";
 
 				MySqlParameter name = new MySqlParameter();
 				name.ParameterName = "@name";
 				name.Value = this._clientName;
 				cmd.Parameters.Add(name);
-				
+
+				MySqlParameter phone = new MySqlParameter();
+				phone.ParameterName = "@phone";
+				phone.Value = this._clientPhone;
+				cmd.Parameters.Add(phone);
+
+				MySqlParameter email = new MySqlParameter();
+				email.ParameterName = "@email";
+				email.Value = this._clientEmail;
+				cmd.Parameters.Add(email);
+
 				cmd.ExecuteNonQuery();
 				_id = (int) cmd.LastInsertedId;
 				conn.Close();
@@ -158,22 +199,39 @@ namespace HairSalon.Models
       }
     }
 
-			public void Edit(string newClientName)
+			public void Edit(string newClientName, string newClientPhone, string newClientEmail)
     	{
       MySqlConnection conn = DB.Connection();
       conn.Open();
       var cmd = conn.CreateCommand() as MySqlCommand;
-      cmd.CommandText = @"UPDATE clients SET name = @clientName WHERE id = @clientId;";
+      cmd.CommandText = @"UPDATE clients SET name = (@clientName), phone = (@clientPhone), email = (@clientEmail) WHERE id = @clientId;";
+
       MySqlParameter clientNameParameter = new MySqlParameter();
       clientNameParameter.ParameterName = "@clientName";
       clientNameParameter.Value = newClientName;
       cmd.Parameters.Add(clientNameParameter);
-      MySqlParameter clientIdParameter = new MySqlParameter();
+
+			MySqlParameter clientPhoneParameter = new MySqlParameter();
+      clientPhoneParameter.ParameterName = "@clientPhone";
+      clientPhoneParameter.Value = newClientPhone;
+      cmd.Parameters.Add(clientPhoneParameter);
+
+			MySqlParameter clientEmailParameter = new MySqlParameter();
+      clientEmailParameter.ParameterName = "@clientEmail";
+      clientEmailParameter.Value = newClientEmail;
+      cmd.Parameters.Add(clientEmailParameter);
+
+			MySqlParameter clientIdParameter = new MySqlParameter();
       clientIdParameter.ParameterName = "@clientId";
       clientIdParameter.Value = this._id;
       cmd.Parameters.Add(clientIdParameter);
+
+
+
       cmd.ExecuteNonQuery();
       _clientName = newClientName;
+			_clientPhone = newClientPhone;
+			_clientEmail = newClientEmail;
       conn.Close();
       if (conn != null)
       {
